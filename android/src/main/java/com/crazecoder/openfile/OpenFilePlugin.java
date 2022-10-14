@@ -107,10 +107,10 @@ public class OpenFilePlugin implements MethodCallHandler
                     }
                 }
                 if (hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    if (TYPE_STRING_APK.equals(typeString)) {
-                        openApkFile();
-                        return;
-                    }
+//                    if (TYPE_STRING_APK.equals(typeString)) {
+//                        openApkFile();
+//                        return;
+//                    }
                     startActivity();
                 } else {
                     ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
@@ -180,9 +180,9 @@ public class OpenFilePlugin implements MethodCallHandler
             return;
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        if (TYPE_STRING_APK.equals(typeString))
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        else
+//        if (TYPE_STRING_APK.equals(typeString))
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        else
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -219,8 +219,8 @@ public class OpenFilePlugin implements MethodCallHandler
                 return "application/vnd.google-earth.kml+xml";
             case "gpx":
                 return "application/gpx+xml";
-            case "apk":
-                return TYPE_STRING_APK;
+//            case "apk":
+//                return TYPE_STRING_APK;
             case "asf":
                 return "video/x-ms-asf";
             case "avi":
@@ -387,11 +387,11 @@ public class OpenFilePlugin implements MethodCallHandler
     @Override
     public boolean onRequestPermissionsResult(int requestCode, String[] strings, int[] grantResults) {
         if (requestCode != REQUEST_CODE) return false;
-        if (hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                && TYPE_STRING_APK.equals(typeString)) {
-            openApkFile();
-            return false;
-        }
+//        if (hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+//                && TYPE_STRING_APK.equals(typeString)) {
+//            openApkFile();
+//            return false;
+//        }
         for (String string : strings) {
             if (!hasPermission(string)) {
                 result(-3, "Permission denied: " + string);
